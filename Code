@@ -1,1 +1,146 @@
+import time
+print("Welcome to PyFinance")
+users = [    {"pin_no": 1234, "balance": 10000 ,"UPI_ID" : 1234567890},    {"pin_no": 2345, "balance": 5000,"UPI_ID" : 1987654321},    {"pin_no" : 3456, "balance": 15000, "UPI_ID" : 1234560077}]
+n = int(input("Please Enter your pin number: "))
+print("1) Withdraw money")
+print("2) Show balance")
+print("3) Show account details.")
+print("4) Take an instant loan.")
+print("5) UPI Transaction")
+print("6) Getting bored... Play a quick hangman game :)")
+print("7) Exit")
+
+def get_user(pin_no):
+    for user in users:
+        if user["pin_no"] == pin_no:
+            return user
+    return None
+
+def withdraw():
+    user = get_user(n)
+    if not user:
+        print("Invalid PIN")
+        return
+    y = int(input("how much money do you want to withdraw: "))
+    if y > user["balance"]:
+        print("You don't have sufficient balance to withdraw money")
+    else:
+        print("Please wait while your transaction is processing")
+        print("... ... ... ... ...")
+        print("Your transaction was successful")
+        print("Please collect your money")
+        user["balance"] -= y
+
+def show_balance():
+    user = get_user(n)
+    if not user:
+        print("Invalid PIN")
+        return
+    print("Your current bank balance is", user["balance"])
+
+def show_details():
+    user = get_user(n)
+    if not user:
+        print("Invalid PIN")
+        return
+    print("Your current account details are:")
+    print("PIN: ", user["pin_no"])
+    print("Balance: ", user["balance"])
+
+def loan():
+    if not user(m):
+        print("Invalid PIN")
+        return
+    principal = float(input("Enter the loan amount: "))
+    rate = float(input("Enter the annual interest rate: "))
+    years = int(input("Enter the number of years: "))
+
+    print("Select the type of interest:")
+    print("1. Simple interest")
+    print("2. Compound interest")
+
+    option = int(input("Enter your choice: "))
+
+    if option == 1:
+        interest = principal * rate * years / 100
+        total_amount = principal + interest
+    else:
+        periods = int(input("Enter the number of compounding periods per year: "))
+        r = rate / (100 * periods)
+        n = periods * years
+        total_amount = principal * (1 + r) ** n
+
+    print("Your total amount payable is", total_amount)
+    print("Your monthly EMI will be", total_amount/(12*years))
+    print("Thank you for your patronage.... We hope to see you soon")
+
+def UPI_Transaction():
+    ab=0
+    ii= int(input("Enter your UPI ID"))
+    x = int(input("Enter the UPI ID you want to send money to "))
+    for i in users :
+        if i["UPI_ID"]==x:
+            ab+=1
+    if ab ==0:
+        print("Incorrect UPI ID")
+        return
+    uu= int(input("Enter the amount of money you want to send"))
+    for gfh in users:
+        if gfh["UPI_ID"]==ii:
+            gfh["balance"]-=uu
+        elif gfh["UPI_ID"]==x:
+            gfh["balance"]+=uu
+    print("Your transaction was successful")
+
+def hangman():
+    
+ name = input("What is your name? ")
+ print ("Hello, " + name, "Time to play hangman!")
+ time.sleep(1)
+ print ("Start guessing...")
+ time.sleep(0.5)
+ 
+ word = ("secret")
+ guesses = ''
+ turns = 10
+ while turns > 0:             
+     failed = 0                     
+     for char in word:          
+         if char in guesses:            
+             print (char,end=""),    
+         else:        
+             print ("_",end=""),             
+             failed += 1        
+     if failed == 0:        
+         print ("You won")    
+         break                
+     guess = input("guess a character:")     
+     guesses += guess                        
+     if guess not in word:     
+         turns -= 1            
+         print ("Wrong")      
+         print ("You have", + turns, 'more guesses' )
+         if turns == 0:                   
+             print ("You Lose"  )
+                    
+while True:
+    m = int(input("What would you like to do: "))
+    if m == 1:
+        withdraw()
+    elif m == 2:
+        show_balance()
+    elif m == 3:
+        show_details()
+    elif m == 4:
+        loan()
+    elif m== 5:
+        UPI_Transaction()
+    elif m==6:
+        hangman()
+        
+    elif m == 7:
+        print("Thank Yoy! Come again soon")
+        break
+    else:
+        print("Please enter a valid option")
 
